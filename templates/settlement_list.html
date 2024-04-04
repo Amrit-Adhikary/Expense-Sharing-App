@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <body class="bg-gray-100">
+    <h1 class="text-3xl font-bold mb-4">Settlement List</h1>
+    <ul>
+      {% for settlement in settlements %}
+      <li class="border rounded-lg p-4 mb-4">
+        <p class="mb-2"><span class="font-bold">Payer:</span> {{ settlement.payer }}</p>
+        <p class="mb-2"><span class="font-bold">Payee:</span> {{ settlement.payee }}</p>
+        <p class="mb-2"><span class="font-bold">Amount:</span> {{ settlement.amount }}</p>
+        <p><span class="font-bold">Settled:</span> {% if settlement.settled %} Yes {% else %} No {% endif %}</p>
+        {% if not settlement.settled %}
+        <form action="https://rc-epay.esewa.com.np/api/epay/main/v2/form" method="POST" class="mt-4">
+          <input type="hidden" id="amount" name="amount" value="100" required />
+          <input type="hidden" id="tax_amount" name="tax_amount" value="10" required />
+          <input type="hidden" id="total_amount" name="total_amount" value="110" required />
+          <input type="hidden" id="transaction_uuid" name="transaction_uuid" value="asdf-0-0-0-0" required />
+          <input type="hidden" id="product_code" name="product_code" value="EPAYTEST" required />
+          <input type="hidden" id="product_service_charge" name="product_service_charge" value="0" required />
+          <input type="hidden" id="product_delivery_charge" name="product_delivery_charge" value="0" required />
+          <input type="hidden" id="success_url" name="success_url" value="https://esewa.com.np" required />
+          <input type="hidden" id="failure_url" name="failure_url" value="https://google.com" required />
+          <input type="hidden" id="signed_field_names" name="signed_field_names" value="total_amount,transaction_uuid,product_code" required />
+          <input type="hidden" id="signature" name="signature" required />
+          <button type="button" onclick="generateSignature()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Generate Signature</button>
+          <input value="Submit" type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded ml-2" />
+        </form>
+        {% endif %}
+      </li>
+      {% endfor %}
+    </ul>
+
+    <script>
+      function generateSignature() {
+        var secretKey = "8gBm/:&EnhH.1/q("; // Replace with your actual secret key
+        var totalAmount = document.getElementById("total_amount").value;
+        var transactionUUID = document.getElementById("transaction_uuid").value;
+        var productCode = document.getElementById("product_code").value;
+        var dataToHash = "total_amount=" + totalAmount + ",transaction_uuid=" + transactionUUID + ",product_code=" + productCode;
+
+        var signature = CryptoJS.HmacSHA256(dataToHash, secretKey).toString(CryptoJS.enc.Base64);
+        console.log(signature)
+        document.getElementById("signature").value = signature;
+      }
+    </script>
+  </body>
+{% endblock %}

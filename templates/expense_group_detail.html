@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="bg-gray-100 p-8">
+    <h1 class="text-3xl font-bold mb-4">Expense Group Detail</h1>
+    
+    <div class="bg-white shadow-md rounded px-8 py-6 mb-8">
+        <div class="mb-4">
+            <p class="text-lg font-semibold mb-2">Group Name:</p>
+            <p>{{ expense_group.group_name }}</p>
+        </div>
+        
+        <div>
+            <p class="text-lg font-semibold mb-2">Members:</p>
+            <ul>
+                {% for member in expense_group.members.all %}
+                    <li>
+                        <strong>{{ member.username }}</strong> 
+                       {{ member.first_name }} {{ member.last_name }} - ({{ member.email }})
+                       
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

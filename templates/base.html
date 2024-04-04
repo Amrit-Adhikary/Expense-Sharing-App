@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Sharing App - Home</title>
+    <!-- Add Tailwind CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+    <!-- Navigation Bar -->
+    <nav class="bg-blue-400 text-white shadow-lg">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="/" class="font-medium text-2xl text-white">Expense Sharing App</a>
+            <div class="flex items-center">
+                <span class="mr-4 text-white">👤 {{ user.first_name }} {{ user.last_name }}</span>
+                <form action="/logout" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="inline-block bg-blue-200 hover:bg-blue-300 text-blue-800 py-2 px-4 rounded transition duration-300 ease-in-out">Logout</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+    <!-- Main Content and Sidebar -->
+    <div class="container mx-auto flex mt-6">
+        <!-- Sidebar -->
+        <aside class="bg-gray-100 text-gray-800 p-4 w-64 h-screen overflow-y-auto">
+            <div class="text-xl font-bold mb-4">Menu</div>
+            <nav>
+                <ul class="space-y-2">
+                    <li><a href="/" class="block px-4 py-2 rounded hover:bg-gray-200">🏠 Home</a></li>
+                    <li><a href="/category/list/" class="block px-4 py-2 rounded hover:bg-gray-200">💳 My Expenses</a></li>
+                    <li><a href="/expense_group/create/" class="block px-4 py-2 rounded hover:bg-gray-200">👥 Expense Groups</a></li>
+                    <li><a href="/settlement/create/" class="block px-4 py-2 rounded hover:bg-gray-200">🤝 Settlements</a></li>
+                </ul>
+            </nav>
+            <!-- Invite Others Section -->
+            <div class="mt-6">
+                <h2 class="text-lg font-semibold mb-2">📧 Add Friends</h2>
+                <form method="post" action="{% url 'send_invites' %}" class="space-y-2">
+                    {% csrf_token %}
+                    <label for="email" class="block text-sm">Enter Email Address:</label>
+                    <input type="email" id="email" name="email" required placeholder="example@example.com" class="rounded border border-gray-400 px-3 py-2">
+                    <button type="submit" class="btn bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">Invite & Add Friends</button>
+                </form>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="flex-1 px-6 py-6">
+            {% block content %}
+                
+            {% endblock %}
+        </div>
+    </div>
+</body>
+</html>

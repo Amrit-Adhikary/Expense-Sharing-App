@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mx-auto px-4">
+    <div class="flex items-center justify-between mb-6">
+        <h1 class="text-3xl font-bold">Expense Categories</h1>
+        <a href="{% url 'expense_category_create' %}" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md shadow-md transition duration-300 ease-in-out">Create New Category</a>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {% for category in categories %}
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <p class="text-xl font-semibold text-gray-800">{{ category.expense_name }}</p>
+                <p class="text-base text-gray-600">{{ category.description }}</p>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
