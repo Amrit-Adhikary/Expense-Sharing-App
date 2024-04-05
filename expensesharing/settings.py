@@ -30,7 +30,14 @@ INSTALLED_APPS = [
     'main',
     "corsheaders",
     "accounts",
+    "crispy_forms",
+    "crispy_tailwind",
 ]
+
+# crispy forms tailwind settings
+CRISPY_ALLOWED_TEMPLATE_PACKS = "tailwind"
+
+CRISPY_TEMPLATE_PACK = "tailwind"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
