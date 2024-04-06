@@ -1,17 +1,23 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<body>
-    <h1>Expense List</h1>
-    <ul>
+<div class="container mx-auto px-4">
+    <div class="flex items-center justify-between mb-6">
+        <h1 class="text-3xl font-bold mb-4">Expense List</h1>
+        <a href="{% url 'expense_create' %}" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md shadow-md transition duration-300 ease-in-out">Add New Expense</a>
+    </div>
+    <ul class="list-group">
         {% for expense in expenses %}
-            <li>
-                Description: {{ expense.description }} <br>
-                Amount: {{ expense.amount }} <br>
-                Date: {{ expense.date }} <br>
-                {% comment %} <a href="{% url 'expense_detail' expense.id %}">View Details</a> <!-- Link to expense detail page --> {% endcomment %}
-            </li>
+        <li class="list-group-item">
+            <div class="row">
+                <div class="col-md-6">
+                    <strong>Description:</strong> {{ expense.description }} <br>
+                    <strong>Amount:</strong> {{ expense.amount }} <br>
+                    <strong>Date:</strong> {{ expense.date }} <br>
+                </div>
+            </div>
+        </li>
         {% endfor %}
     </ul>
-</body>
+</div>
 {% endblock %}

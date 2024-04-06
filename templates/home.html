@@ -16,26 +16,27 @@
             
             <!-- My Expenses Section -->
             <div class="bg-white rounded-lg p-6 shadow-md border border-gray-300">
-                <h2 class="text-2xl font-semibold mb-4 text-gray-800">My Expenses</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {% for category in categories %}
-                    <div class="border border-gray-200 p-4 rounded-lg">
-                        <h3 class="text-lg font-semibold mb-2 text-gray-800">{{ category.expense_name }}</h3>
-                        <p class="text-gray-600">{{ category.description }}</p>
-                    </div>
-                    {% empty %}
-                    <p>No expense categories found.</p>
+                <h2 class="text-2xl font-semibold mb-3 text-gray-800">My Expenses</h2>
+                <hr class="border-black my-1">
+                <ul class="divide-y divide-gray-200">
+                    {% for expense in expenses %}
+                        <li class="py-2">
+                            <div class="text-gray-800"><strong>Description:</strong> {{ expense.description }}</div>
+                            <div class="text-gray-800"><strong>Amount:</strong> {{ expense.amount }}</div>
+                            <div class="text-gray-800"><strong>Date:</strong> {{ expense.date }}</div>
+                        </li>
                     {% endfor %}
-                </div>
+                </ul>
             </div>
             
 
             <!-- Expense Groups Section -->
             <div class="bg-white rounded-lg p-6 shadow-md border border-gray-300">
-                <h2 class="text-2xl font-semibold mb-4 text-gray-800">Expense Groups</h2>
-                <ul>
+                <h2 class="text-2xl font-semibold mb-3 text-gray-800">Expense Groups</h2>
+                <hr class="border-black my-1">
+                <ul class="divide-y divide-gray-200">
                     {% for expense_group in expense_groups %}
-                        <li>
+                        <li class="py-2">
                             <h3 class="text-lg font-semibold mb-2">{{ expense_group.group_name }}</h3>
                         </li>
                     {% endfor %}
@@ -44,16 +45,17 @@
 
             <!-- Settlements Section -->
             <div class="bg-white rounded-lg p-6 shadow-md border border-gray-300">
-                <h2 class="text-2xl font-semibold mb-0 text-gray-800">Settlements</h2>
-                <div class="divide-y divide-gray-200">
+                <h2 class="text-2xl font-semibold mb-3 text-gray-800">Settlements</h2>
+                <hr class="border-black my-1">
+                <ul class="divide-y divide-gray-200">
                     {% for settlement in settlements %}
-                        <div class="py-2">
-                            <div class="text-lg font-semibold">Payer: {{ settlement.payer.first_name }} {{ settlement.payer.last_name }}</div>
-                            <div class="text-gray-700">Payee: {{ settlement.payee.first_name }} {{ settlement.payee.last_name }}</div>
-                            <div class="text-gray-700">Amount: {{ settlement.amount }}</div>
-                        </div>
+                        <li class="py-2">
+                            <div class="text-gray-800"><strong>Payer:</strong> {{ settlement.payer.first_name }} {{ settlement.payer.last_name }}</div>
+                            <div class="text-gray-800"><strong>Payee:</strong> {{ settlement.payee.first_name }} {{ settlement.payee.last_name }}</div>
+                            <div class="text-gray-800"><strong>Amount:</strong> {{ settlement.amount }}</div>
+                        </li>
                     {% endfor %}
-                </div>
+                </ul>
             </div>
         </div>
     </div>

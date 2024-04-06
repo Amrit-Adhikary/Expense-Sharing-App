@@ -1,13 +1,17 @@
 {% extends 'base.html' %}
 
 {% load tailwind_filters %}
+
 {% block content %}
-<body>
-    <h1>Create Expense</h1>
-    <form method="post" enctype="multipart/form-data">
+<div class="container mx-auto px-4">
+    <div class="flex justify-between items-center mb-4">
+        <h1 class="text-3xl font-bold">Create Expense</h1>
+        <a href="{% url 'expense_list' %}" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md shadow-md transition duration-300 ease-in-out">View Expense List</a>
+    </div>
+    <form method="post" enctype="multipart/form-data" class="mt-6">
         {% csrf_token %}
         {{ form|crispy }}
-        <button type="submit">Submit</button>
+        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-4">Submit</button>
     </form>
-</body>
+</div>
 {% endblock %}
