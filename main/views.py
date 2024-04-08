@@ -25,10 +25,12 @@ def home(request):
     return render(request, 'home.html', context)
 
 
+@login_required
 def expense_category_list(request):
     categories = ExpenseCategory.objects.all()
     return render(request, 'expense_category_list.html', {'categories': categories})
 
+@login_required
 def expense_category_create(request):
     if request.method == 'POST':
         form = ExpenseCategoryForm(request.POST)
@@ -39,6 +41,7 @@ def expense_category_create(request):
         form = ExpenseCategoryForm()
     return render(request, 'expense_category_form.html', {'form': form})
 
+@login_required
 def expense_category_update(request, pk):
     category = get_object_or_404(ExpenseCategory, pk=pk)
     if request.method == 'POST':
@@ -50,6 +53,7 @@ def expense_category_update(request, pk):
         form = ExpenseCategoryForm(instance=category)
     return render(request, 'expense_category_form.html', {'form': form})
 
+@login_required
 def expense_category_delete(request, pk):
     category = get_object_or_404(ExpenseCategory, pk=pk)
     if request.method == 'POST':
