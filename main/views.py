@@ -112,7 +112,8 @@ def expense_group_create(request):
             return redirect('expense_group_detail', expense_group_id=expense_group.id)
     else:
         form = ExpenseGroupForm()
-    return render(request, 'expense_group_create.html', {'form': form})
+    expense_list = ExpenseGroup.objects.all()
+    return render(request, 'expense_group_create.html', {'form': form,'expense_list':expense_list})
 
 @login_required
 def expense_group_detail(request, expense_group_id):

@@ -12,10 +12,21 @@
         </div>
         <div class="mb-4">
             <label class="block text-gray-700 text-sm font-bold mb-2">Members</label>
-            {% for member in form.members %}
+            <!-- {% for member in form.members %}
             <div class="flex items-center">
-                <input type="checkbox" id="{{ member.id_for_label }}" name="{{ member.name }}" class="mr-2">
+                <input type="checkbox" id="{{ member.id_for_label }}" name="{{ member.name }} :{{member.id}}" class="mr-2">
                 <label for="{{ member.id_for_label }}">{{ member.choice_label }}</label>
+            </div>
+            {% endfor %} -->
+            {% for member in expense_list %}
+            <div class="flex items-center">
+
+                {{member.group_name}}
+                {{member.id}}
+                {% comment %} <a href="{% url 'expense_group_detail' member.group_name %}"></a> {% endcomment %}
+                <a href="/expense_group/{{member.id}}">Details_link</a>
+                <input type="checkbox" id="{{ member.id_for_label }}" name="{{ member.group_name }} :{{member.id}}" class="mr-2">
+                <!-- <label for="{{ member.id_for_label }}">{{ member.choice_label }}</label> -->
             </div>
             {% endfor %}
         </div>
