@@ -6,7 +6,9 @@
     <title>Expense Sharing App - Home</title>
     <!-- Add Tailwind CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/hmac-sha256.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/enc-base64.min.js"></script>
 </head>
 <body class="bg-gray-100 font-sans">
     <!-- Navigation Bar -->
@@ -32,7 +34,7 @@
                     <li><a href="/" class="block px-4 py-2 rounded hover:bg-gray-200">🏠 Home</a></li>
                     <li><a href="/expense/" class="block px-4 py-2 rounded hover:bg-gray-200">💳 My Expenses</a></li>
                     <li><a href="/category/list/" class="block px-4 py-2 rounded hover:bg-gray-200">🍱 Expenses Category</a></li>
-                    <li><a href="/expense_group/create/" class="block px-4 py-2 rounded hover:bg-gray-200">👥 Expense Groups</a></li>
+                    <li><a href="/expense_group/list/" class="block px-4 py-2 rounded hover:bg-gray-200">👥 Expense Groups</a></li>
                     <li><a href="/settlements/" class="block px-4 py-2 rounded hover:bg-gray-200">🤝 Settlements</a></li>
                 </ul>
             </nav>

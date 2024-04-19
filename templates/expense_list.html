@@ -4,20 +4,24 @@
 <div class="container mx-auto px-4">
     <div class="flex items-center justify-between mb-6">
         <h1 class="text-3xl font-bold mb-4">Expense List</h1>
-        <a href="{% url 'expense_create' %}" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md shadow-md transition duration-300 ease-in-out">Add New Expense</a>
-    </div>
-    <ul class="list-group">
-        {% for expense in expenses %}
-        <li class="list-group-item">
-            <div class="row">
-                <div class="col-md-6">
-                    <strong>Description:</strong> {{ expense.description }} <br>
-                    <strong>Amount:</strong> {{ expense.amount }} <br>
-                    <strong>Date:</strong> {{ expense.date }} <br>
-                </div>
+        <div class="flex items-center space-x-4">
+            <div class="relative">
+                <form method="get" action="/search">
+                    <input type="text" name="query" placeholder="Search expense..." class="border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <button type="submit" class="absolute inset-y-0 right-0 px-3 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">Search</button>
+                </form>
             </div>
-        </li>
+            <a href="{% url 'expense_create' %}" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md shadow-md transition duration-300 ease-in-out">Add New Expense</a>
+        </div>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {% for expense in expenses %}
+        <div class="bg-white shadow-md rounded-lg p-6">
+            <p><strong>Description:</strong> {{ expense.description }}</p>
+            <p><strong>Amount:</strong> {{ expense.amount }}</p>
+            <p><strong>Date:</strong> {{ expense.date }}</p>
+        </div>
         {% endfor %}
-    </ul>
+    </div>
 </div>
 {% endblock %}

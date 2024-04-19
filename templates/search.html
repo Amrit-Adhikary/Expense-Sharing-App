@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<body>
+    <form method="get" action="">
+        {{ form.as_p }}
+        <input type="submit" value="Search">
+    </form>
+    
+    <h2>Results:</h2>
+    {% if items %}
+        <ul>
+            {% for item in items %}
+                <li>{{ item.expense_name }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No results found.</p>
+    {% endif %}
+</body>
+{% endblock %}

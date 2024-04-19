@@ -18,7 +18,7 @@
             <input type="hidden" id="amount" name="amount" value="100" required />
             <input type="hidden" id="tax_amount" name="tax_amount" value="10" required />
             <input type="hidden" id="total_amount" name="total_amount" value="110" required />
-            <input type="hidden" id="transaction_uuid" name="transaction_uuid" value="asdf-0-0-0-0" required />
+            <input type="hidden" id="transaction_uuid" name="transaction_uuid" value="{{ transaction_code }}" required /> <!-- Updated to use the transaction_code variable -->
             <input type="hidden" id="product_code" name="product_code" value="EPAYTEST" required />
             <input type="hidden" id="product_service_charge" name="product_service_charge" value="0" required />
             <input type="hidden" id="product_delivery_charge" name="product_delivery_charge" value="0" required />
@@ -34,18 +34,23 @@
         {% endfor %}
     </ul>
   
-      <script>
-        function generateSignature() {
-          var secretKey = "8gBm/:&EnhH.1/q"; // Replace with your actual secret key
-          var totalAmount = document.getElementById("total_amount").value;
-          var transactionUUID = document.getElementById("transaction_uuid").value;
-          var productCode = document.getElementById("product_code").value;
-          var dataToHash = "total_amount=" + totalAmount + ",transaction_uuid=" + transactionUUID + ",product_code=" + productCode;
-  
-          var signature = CryptoJS.HmacSHA256(dataToHash, secretKey).toString(CryptoJS.enc.Base64);
-          console.log(signature)
-          document.getElementById("signature").value = signature;
-        }
-      </script>
+    <script>
+      function generateSignature() { // Updated function name from handleClick to generateSignature
+        const totalAmt = document.getElementById("total_amount").value;
+        const transactionUuid =
+          document.getElementById("transaction_uuid").value;
+        const productCode = document.getElementById("product_code").value;
+
+        const message = `total_amount=${totalAmt},transaction_uuid=${transactionUuid},product_code=${productCode}`;
+
+        const merchantKey = "8gBm/:&EnhH.1/q"; // merchant key for UAT
+
+        var hash = CryptoJS.HmacSHA256(message, merchantKey);
+        var hashInBase64 = CryptoJS.enc.Base64.stringify(hash);
+        console.log(hashInBase64);
+        const signatureElement = document.getElementById("signature");
+        signatureElement.value = hashInBase64;
+      }
+    </script>
 </div>
 {% endblock %}

@@ -21,6 +21,7 @@ urlpatterns = [
     
     path('expense_group/create/', views.expense_group_create, name='expense_group_create'),
     path('expense_group/<int:expense_group_id>/', views.expense_group_detail, name='expense_group_detail'),
+    path('expense_group/list/', views.expense_group_list, name='expense_group_list'),
     path('expense_group/<int:expense_group_id>/edit/', views.expense_group_edit, name='expense_group_edit'),
     path('expense_group/<int:expense_group_id>/delete/', views.expense_group_delete, name='expense_group_delete'),
     
@@ -28,4 +29,6 @@ urlpatterns = [
     path('settlement/<int:settlement_id>/edit/', views.settlement_edit, name='settlement_edit'),
     path('settlement/<int:settlement_id>/delete/', views.settlement_delete, name='settlement_delete'),
     path('settlements/', views.settlement_list, name='settlement_list'),
+
+    path('search/', views.search_expense_category, name='search')
 ]

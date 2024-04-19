@@ -4,7 +4,15 @@
 <div class="container mx-auto px-4">
     <div class="flex items-center justify-between mb-6">
         <h1 class="text-3xl font-bold">Expense Categories</h1>
-        <a href="{% url 'expense_category_create' %}" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md shadow-md transition duration-300 ease-in-out">Add New Category</a>
+        <div class="flex items-center space-x-4">
+            <div class="relative">
+                <form method="get" action="/search">
+                    <input type="text" name="query" placeholder="Search categories..." class="border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <button type="submit" class="absolute inset-y-0 right-0 px-3 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">Search</button>
+                </form>
+            </div>
+            <a href="{% url 'expense_category_create' %}" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md shadow-md transition duration-300 ease-in-out">Add New Category</a>
+        </div>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {% for category in categories %}

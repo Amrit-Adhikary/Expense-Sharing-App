@@ -1,4 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from .models import ExpenseGroup
+from .forms import ExpenseGroupForm
+from django.shortcuts import render, redirect, get_object_or_404
 from main.models import ExpenseCategory
 from .forms import *
 from main.models import *
@@ -121,6 +124,12 @@ def expense_group_detail(request, expense_group_id):
     return render(request, 'expense_group_detail.html', {'expense_group': expense_group})
 
 @login_required
+def expense_group_list(request):
+    expense_group = ExpenseGroup.objects.all()
+    return render(request, 'expense_group_list.html', {'expense_group': expense_group})
+
+
+@login_required
 def expense_group_edit(request, expense_group_id):
     expense_group = get_object_or_404(ExpenseGroup, id=expense_group_id)
     if request.method == 'POST':
@@ -172,9 +181,17 @@ def settlement_delete(request, settlement_id):
         return redirect('homepage')
     return render(request, 'settlement_confirm_delete.html', {'settlement': settlement})
 
+
+import uuid
+
 @login_required
 def settlement_list(request):
     settlements = Settlement.objects.all()
+    
+     # Generate a unique transaction UUID for each settlement
+    for settlement in settlements:
+        settlement.transaction_uuid = str(uuid.uuid4())  # Add transaction_uuid attribute to each settlement object
+        
     return render(request, 'settlement_list.html', {'settlements': settlements})
 
 @login_required
@@ -199,3 +216,19 @@ def send_invites(request):
         form = InvitationForm()  # If not a POST request, create a new form instance
 
     return render(request, 'send_invites.html', {'form': form})
+
+@login_required
+def search_expense_category(request):
+    form = ExpenseCategoryFilterForm(request.GET or None)
+
+    items = []
+
+    if form.is_valid():
+        if title_query := form.cleaned_data.get('expense_name'):
+            items = ExpenseCategory.objects.filter(expense_name__icontains=title_query)
+
+    context = {
+        'form': form,
+        'items': items,
+    }
+    return render(request, 'search.html', context)
